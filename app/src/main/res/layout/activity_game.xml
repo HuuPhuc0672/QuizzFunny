@@ -4,70 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".GameActivity">
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
         android:text="Đố Vui"
         android:textSize="25sp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_cauhoi"
+        app:layout_constraintTop_toTopOf="parent" />-->
+    <FrameLayout
+        android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="25dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="75dp"
-        android:text="@string/cau_hoi"
-        android:textSize="25sp"
+        android:layout_height="360dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@drawable/chin" />
+
+        <TextView
+            android:id="@+id/txt_cauhoi"
+            android:layout_width="319dp"
+            android:layout_height="190dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="160dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="@font/alike"
+            android:paddingLeft="50dp"
+            android:paddingTop="25dp"
+            android:text="@string/cau_hoi"
+            android:textColor="@color/black"
+            android:textSize="26sp" />
+
+    </FrameLayout>
+
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="44dp"
         android:text="Đây là con gì?"
-        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:fontFamily="@font/alike"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_cauhoi" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
     <TextView
         android:id="@+id/txt_cauA"
         android:layout_width="160dp"
         android:layout_height="60dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="116dp"
+        android:background="@drawable/ic_radiu"
+        android:backgroundTint="#ffcccc"
+        android:gravity="center"
+        android:fontFamily="@font/alike"
+        android:text="Cá"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_cauhoi" />
-
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
     <TextView
         android:id="@+id/txt_cauB"
         android:layout_width="160dp"
         android:layout_height="60dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/ic_radiu"
+        android:backgroundTint="#ffcccc"
+        android:fontFamily="@font/alike"
+        android:gravity="center"
+        android:text="Chim"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_cauhoi" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
     <TextView
         android:id="@+id/txt_cauC"
         android:layout_width="160dp"
         android:layout_height="60dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="48dp"
+        android:background="@drawable/ic_radiu"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:fontFamily="@font/alike"
+        android:backgroundTint="#ffcccc"
+        android:textColor="@color/black"
+        android:text="Alo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_cauA" />
 
@@ -77,6 +116,13 @@
         android:layout_height="60dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
+        android:background="@drawable/ic_radiu"
+        android:backgroundTint="#ffcccc"
+        android:gravity="center"
+        android:fontFamily="@font/alike"
+        android:text="alo"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_cauB" />
 </androidx.constraintlayout.widget.ConstraintLayout>
