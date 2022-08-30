@@ -1,13 +1,16 @@
 package com.example.dovui
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.os.CountDownTimer
+import android.os.Handler
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.dovui.Mode.DataCauHoi1
 import com.example.dovui.Mode.Traloi1
 import kotlin.random.Random
@@ -20,8 +23,14 @@ class GameActivity : AppCompatActivity(),View.OnClickListener {
     private val txtCauB: TextView by lazy { findViewById<TextView>(R.id.txt_cauB) }
     private val txtCauC: TextView by lazy { findViewById<TextView>(R.id.txt_cauC) }
     private val txtCauD: TextView by lazy { findViewById<TextView>(R.id.txt_cauD) }
+
+    //private val txtTime: TextView by lazy { findViewById<TextView>(R.id.txt_time) }
+
+
+
+
     private lateinit var  nlist:DataCauHoi1
-    var cauhoilist : MutableList<DataCauHoi1> = mutableListOf()
+     private var cauhoilist : MutableList<DataCauHoi1> = mutableListOf()
     var soluongc : Int =0
     val  list :MutableList<DataCauHoi1> = mutableListOf();
 
@@ -33,8 +42,15 @@ class GameActivity : AppCompatActivity(),View.OnClickListener {
         setContentView(R.layout.activity_game)
         cauhoilist= getDuLieu()
         setDataCau(cauhoilist.get(soluongc))
+        //txtTime()
+        time()
+
 
     }
+    fun time() {
+        Handler().postDelayed({ gameOver("Game Over") },60000)
+    }
+
 
     private fun setDataCau(cauHoi: DataCauHoi1) {
         nlist=cauHoi
@@ -43,11 +59,15 @@ class GameActivity : AppCompatActivity(),View.OnClickListener {
         txtCauC.setOnClickListener(this)
         txtCauD.setOnClickListener(this)
 
+        txtCauA.setBackgroundResource(R.drawable.ic_radiu)
+        txtCauB.setBackgroundResource(R.drawable.ic_radiu)
+        txtCauC.setBackgroundResource(R.drawable.ic_radiu)
+        txtCauD.setBackgroundResource(R.drawable.ic_radiu)
+
 
         for (i in list.indices){
-            /*val random =Random
-            val  cah = DataCauHoi1()*/
-
+            val random = Random.nextInt(list.size)
+            //val  randomelem = list[random]
             if(list.get(i).soCau ==cauHoi.soCau){
                 txtCauhoi.text=cauHoi.cauHoi
                 txtCauA.text =cauHoi.listcauTraloi.get(0).cau
@@ -55,6 +75,7 @@ class GameActivity : AppCompatActivity(),View.OnClickListener {
                 txtCauC.text =cauHoi.listcauTraloi.get(2).cau
                 txtCauD.text =cauHoi.listcauTraloi.get(3).cau
             }
+
         }
 
 
@@ -63,26 +84,29 @@ class GameActivity : AppCompatActivity(),View.OnClickListener {
 
     @SuppressLint("ResourceAsColor")
     override fun onClick(v: View) {
-       when(v.id){
-           R.id.txt_cauA ->{
-               checkDung(txtCauA,nlist,nlist.listcauTraloi[0])
-           }
+        when(v.id){
+            R.id.txt_cauA ->{
+                txtCauA.setBackgroundResource(R.drawable.ic_buttonsai)
+                checkDung(txtCauA,nlist,nlist.listcauTraloi[0])
+            }
 
-           R.id.txt_cauB ->{
-               checkDung(txtCauB,nlist,nlist.listcauTraloi[1])
-           }
+            R.id.txt_cauB ->{
+                txtCauB.setBackgroundResource(R.drawable.ic_buttonsai)
+                checkDung(txtCauB,nlist,nlist.listcauTraloi[1])
+            }
 
-           R.id.txt_cauC ->{
-               checkDung(txtCauC,nlist,nlist.listcauTraloi[2])
-           }
+            R.id.txt_cauC ->{
+                txtCauC.setBackgroundResource(R.drawable.ic_buttonsai)
+                checkDung(txtCauC,nlist,nlist.listcauTraloi[2])
+            }
 
-           R.id.txt_cauD ->{
-               txtCauD.setBackgroundColor(R.color.yellow)
-               checkDung(txtCauD,nlist,nlist.listcauTraloi[3])
-           }
+            R.id.txt_cauD ->{
+                txtCauD.setBackgroundResource(R.drawable.ic_buttonsai)
+                checkDung(txtCauD,nlist,nlist.listcauTraloi[3])
+            }
 
 
-       }
+        }
     }
     fun next(){
         if (soluongc== cauhoilist.size -1 ){
@@ -100,21 +124,43 @@ class GameActivity : AppCompatActivity(),View.OnClickListener {
     private  fun checkDung( textView: TextView,dataCauHoi1: DataCauHoi1,traloi1: Traloi1){
         if (traloi1.dungs){
             next()
-            Toast.makeText(this,"Tra loi dung",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Phương án bạn chọn chinh sác",Toast.LENGTH_SHORT).show()
         }else{
-            Toast.makeText(this,"Tra loi sai",Toast.LENGTH_SHORT).show()
-            overGame()
+            Toast.makeText(this,"Phương án bạn chọn không chinh sác",Toast.LENGTH_SHORT).show()
+            gameOver("Game Over")
 
         }
 
 
     }
 
-    private fun overGame() {
-        TODO("Not yet implemented")
-    }
+/*    private fun txtTime() {
+        object : CountDownTimer(60000,1000){
+            override fun onTick(p0: Long) {
+                txtTime.text=""+ p0/1000
+            }
 
-    private  fun gameOver(mes:String){
+            override fun onFinish() {
+
+            }
+        }.start()
+
+    }*/
+
+    private  fun gameOver(mes: String){
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(mes)
+        builder.setCancelable(false)
+        builder.setPositiveButton("Chơi Lại") { dialop, i ->
+            soluongc =0
+            setDataCau(cauhoilist!![soluongc])
+            dialop.dismiss()
+        }
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+
+
 
     }
     private fun getDuLieu(): MutableList<DataCauHoi1> {
@@ -201,6 +247,7 @@ class GameActivity : AppCompatActivity(),View.OnClickListener {
 
         return list;
     }
+
 
 
 }

@@ -30,6 +30,17 @@
             android:layout_height="match_parent"
             android:scaleType="centerInside"
             android:src="@drawable/chin" />
+<!--
+        <TextView
+            android:id="@+id/txt_time"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:text="1:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+-->
 
         <TextView
             android:id="@+id/txt_cauhoi"
@@ -69,7 +80,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="116dp"
         android:background="@drawable/ic_radiu"
-        android:backgroundTint="#ffcccc"
+
         android:gravity="center"
         android:fontFamily="@font/alike"
         android:text="Cá"
@@ -85,7 +96,7 @@
         android:layout_marginTop="116dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/ic_radiu"
-        android:backgroundTint="#ffcccc"
+
         android:fontFamily="@font/alike"
         android:gravity="center"
         android:text="Chim"
@@ -104,7 +115,7 @@
         android:gravity="center"
         android:textSize="20sp"
         android:fontFamily="@font/alike"
-        android:backgroundTint="#ffcccc"
+
         android:textColor="@color/black"
         android:text="Alo"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +128,6 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/ic_radiu"
-        android:backgroundTint="#ffcccc"
         android:gravity="center"
         android:fontFamily="@font/alike"
         android:text="alo"
