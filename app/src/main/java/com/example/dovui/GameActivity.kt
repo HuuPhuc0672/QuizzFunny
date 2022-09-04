@@ -1,40 +1,47 @@
 package com.example.dovui
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import com.android.billingclient.api.*
 import com.example.dovui.Mode.DataCauHoi1
 import com.example.dovui.Mode.Traloi1
+import com.google.common.collect.ImmutableList
 import kotlin.random.Random
+
 
 class GameActivity : AppCompatActivity(),View.OnClickListener {
 
+    private val inapp_type_1 = "free_image_animal_15_day"
+    private val inapp_type_2 = "free_image_animal_1_day"
+    private val inapp_type_3 = "free_image_animal_30_day"
+    private val inapp_type_4 = "free_image_animal_3_day"
+    private val inapp_type_5 = "free_image_animal_7_day"
+
+    private var listProductDetails :MutableList<ProductDetails> = mutableListOf();
+    private lateinit var billingClient: BillingClient
 
     private val txtCauhoi: TextView by lazy { findViewById<TextView>(R.id.txt_cauhoi) }
     private val txtCauA: TextView by lazy { findViewById<TextView>(R.id.txt_cauA) }
     private val txtCauB: TextView by lazy { findViewById<TextView>(R.id.txt_cauB) }
     private val txtCauC: TextView by lazy { findViewById<TextView>(R.id.txt_cauC) }
     private val txtCauD: TextView by lazy { findViewById<TextView>(R.id.txt_cauD) }
+    private  val  btnmuakc: ImageView by lazy { findViewById<ImageView>(R.id.btn_billing) }
 
     //private val txtTime: TextView by lazy { findViewById<TextView>(R.id.txt_time) }
-
-
 
 
     private lateinit var  nlist:DataCauHoi1
      private var cauhoilist : MutableList<DataCauHoi1> = mutableListOf()
     var soluongc : Int =0
     val  list :MutableList<DataCauHoi1> = mutableListOf();
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +51,77 @@ class GameActivity : AppCompatActivity(),View.OnClickListener {
         setDataCau(cauhoilist.get(soluongc))
         //txtTime()
         time()
+
+
+
+        ///// biling
+        val purchasesUpdatedListener =
+            PurchasesUpdatedListener { billingResult, purchases ->
+
+            }
+
+        val billingClient = BillingClient.newBuilder(this)
+            .setListener(purchasesUpdatedListener)
+            .enablePendingPurchases()
+            .build()
+
+        billingClient.startConnection(object : BillingClientStateListener {
+            override fun onBillingSetupFinished(billingResult: BillingResult) {
+                if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
+                    val queryProductDetailsParams =
+                        QueryProductDetailsParams.newBuilder()
+                            .setProductList(
+                                ImmutableList.of(
+                                    QueryProductDetailsParams.Product.newBuilder()
+                                        .setProductId(inapp_type_3)
+                                        .setProductType(BillingClient.ProductType.INAPP)
+                                        .build()))
+                            .build()
+
+                    billingClient.queryProductDetailsAsync(queryProductDetailsParams) {
+                            billingResult, productDetailsList ->
+                        listProductDetails=productDetailsList
+
+                    }
+
+                }
+            }
+            override fun onBillingServiceDisconnected() {
+            }
+        })
+
+
+        btnmuakc.setOnClickListener {
+            val productDetailsParamsList = listOf(
+                BillingFlowParams.ProductDetailsParams.newBuilder()
+                    .setProductDetails(listProductDetails[0])
+                    .build()
+            )
+            val billingFlowParams = BillingFlowParams.newBuilder()
+                .setProductDetailsParamsList(productDetailsParamsList)
+                .build()
+            val billingResult = billingClient.launchBillingFlow(this, billingFlowParams)
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
